@@ -15,7 +15,7 @@ public class App {
     }
 
     public void run() {
-        System.out.println("*****histudy*****\r\n" + "1. 학생 관리\r\n" + "2. 그룹 관리\r\n" + "3. 종료\r\n" + "=> 선택할 메뉴는?");
+        System.out.println("*****histudy*****\r\n" + "1. 학생 관리\r\n" + "2. 그룹 관리\r\n" + "3. 종료하기\r\n" + "=> 선택할 메뉴는?");
         int menu = s.nextInt();
 
         while (true) {
