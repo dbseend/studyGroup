@@ -11,7 +11,7 @@ public class DBConnection {
         if (conn == null) {
             try {
                 Class.forName("org.sqlite.JDBC");
-                conn = DriverManager.getConnection("jdbc:sqlite:myStudentsList.sqbpro");
+                conn = DriverManager.getConnection("jdbc:sqlite:myStudentsList.db");
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
             }

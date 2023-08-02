@@ -1,11 +1,11 @@
 package com.hgu.histudyDB.CRUD;
 
+import com.hgu.histudyDB.Info.Students;
+
 public interface ICRUD {
-	public Object add();
+	public int add(Students one);
 
-	public int update(Object obj);
+	public int update(Students one);
 
-	public int delete(Object obj);
-
-	public void selectOne(int id);
+	public int delete(Students one);
 }
