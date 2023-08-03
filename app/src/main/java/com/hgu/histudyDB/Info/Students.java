@@ -3,14 +3,14 @@ package com.hgu.histudyDB.Info;
 public class Students {
     private int id;
     private String name;
-    private int studentId;
+    private String studentId;
     private String phoneNumber;
     private String email;
 
     public Students() {
     }
 
-    public Students(int id, String name, int studentId, String phoneNumber, String email) {
+    public Students(int id, String name, String studentId, String phoneNumber, String email) {
         this.id = id;
         this.name = name;
         this.studentId = studentId;
@@ -34,11 +34,11 @@ public class Students {
         this.name = name;
     }
 
-    public int getStudentId() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
 

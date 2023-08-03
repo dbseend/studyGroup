@@ -4,39 +4,167 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f152730-31c9-4c15-a09c-bc66750dffa3" name="Changes" comment="histudy DB 생성">
+    <list default="true" id="0f152730-31c9-4c15-a09c-bc66750dffa3" name="Changes" comment="histudy DB 학생 기능 구현">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Exceptions/InvalidEmailException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Exceptions/InvalidPhoneNumberException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Exceptions/InvalidStudentIdException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Exceptions/NotFoundationException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/CRUD/GroupCRUD.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/CRUD/GroupCRUD.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/CRUD/ICRUD.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/CRUD/ICRUD.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/CRUD/StudentsCRUD.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/CRUD/StudentsCRUD.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/DB/DBConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/DB/DBConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/Manage/StudentsManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/Manage/StudentsManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/App.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/CRUD/GroupCRUD.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/CRUD/ICRUD.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/CRUD/ICRUD.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/DB Browser for SQLite.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/Qt5Core.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/Qt5Gui.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/Qt5Network.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/Qt5PrintSupport.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/Qt5Widgets.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/Qt5Xml.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-console-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-datetime-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-debug-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-errorhandling-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-file-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-file-l1-2-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-file-l2-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-handle-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-heap-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-interlocked-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-libraryloader-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-localization-l1-2-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-memory-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-namedpipe-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-processenvironment-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-processthreads-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-processthreads-l1-1-1.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-profile-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-rtlsupport-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-string-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-synch-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-synch-l1-2-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-sysinfo-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-timezone-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-core-util-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-crt-conio-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-crt-convert-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-crt-environment-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-crt-filesystem-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-crt-heap-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-crt-locale-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-crt-math-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-crt-multibyte-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-crt-private-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-crt-process-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-crt-runtime-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-crt-stdio-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-crt-string-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-crt-time-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/api-ms-win-crt-utility-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/bearer/qgenericbearer.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/concrt140.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/extensions/fileio.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/extensions/formats.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/extensions/math.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/imageformats/qgif.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/imageformats/qicns.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/imageformats/qico.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/imageformats/qjpeg.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/imageformats/qsvg.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/imageformats/qtga.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/imageformats/qtiff.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/imageformats/qwbmp.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/imageformats/qwebp.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/libcrypto-1_1-x64.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/libssl-1_1-x64.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/licenses/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/licenses/LICENSE-PLUGINS" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/msvcp140.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/msvcp140_1.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/msvcp140_2.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/platforms/qwindows.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/printsupport/windowsprintersupport.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/sqlcipher.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/sqlite3.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/styles/qwindowsvistastyle.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qt_ar.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qt_cs.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qt_de.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qt_en.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qt_es.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qt_fr.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qt_it.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qt_ja.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qt_ko.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qt_pl.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qt_pt.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qt_ru.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qt_uk.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qt_zh_CN.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qt_zh_TW.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtbase_ar.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtbase_cs.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtbase_de.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtbase_en.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtbase_es.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtbase_fr.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtbase_it.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtbase_ja.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtbase_ko.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtbase_pl.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtbase_ru.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtbase_uk.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtmultimedia_ar.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtmultimedia_cs.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtmultimedia_de.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtmultimedia_en.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtmultimedia_es.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtmultimedia_fr.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtmultimedia_it.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtmultimedia_ja.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtmultimedia_ko.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtmultimedia_pl.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtmultimedia_ru.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtmultimedia_uk.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtscript_ar.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtscript_cs.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtscript_de.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtscript_en.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtscript_es.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtscript_fr.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtscript_it.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtscript_ja.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtscript_ko.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtscript_pl.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtscript_ru.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtscript_uk.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtxmlpatterns_cs.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtxmlpatterns_de.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtxmlpatterns_en.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtxmlpatterns_es.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtxmlpatterns_fr.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtxmlpatterns_it.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtxmlpatterns_ja.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtxmlpatterns_ko.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtxmlpatterns_pl.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtxmlpatterns_ru.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/translations/qtxmlpatterns_uk.qm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/ucrtbase.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/vccorlib140.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB.Browser.for.SQLite-3.12.2-win64/DB Browser for SQLite/vcruntime140.dll" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/CRUD/StudentsCRUD.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/CRUD/StudentsCRUD.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/DB/DBConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/DB/DBConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/Info/Group.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/Info/Lecture.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/Manage/GroupManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/Manage/StudentsManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/Manage/StudentsManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/CRUD/GroupCRUD.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/CRUD/ICRUD.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/CRUD/ICRUD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/Info/Students.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/Info/Students.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/CRUD/StudentsCRUD.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/CRUD/StudentsCRUD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/DB/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/DB/DBConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Info/Group.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Info/Lecture.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Info/Students.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Info/Students.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Manage/GroupManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Manage/StudentsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Manage/StudentsManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myStudentsList.db" beforeDir="false" afterPath="$PROJECT_DIR$/myStudentsList.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myStudentsList.db-journal" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -83,11 +211,19 @@
       <option name="project" value="LOCAL" />
       <updated>1690800180710</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="histudy DB 학생 기능 구현">
+      <created>1690989629427</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1690989629427</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="histudy DB 생성" />
-    <option name="LAST_COMMIT_MESSAGE" value="histudy DB 생성" />
+    <MESSAGE value="histudy DB 학생 기능 구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="histudy DB 학생 기능 구현" />
   </component>
 </project>
