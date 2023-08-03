@@ -90,15 +90,17 @@ public class StudentsCRUD implements ICRUD {
     }
 
     @Override
-    public int add(Students one) {
+    public int add(Object one) {
+        Students student = (Students) one;
+
         int retval = 0;
         PreparedStatement pstmt;
         try {
             pstmt = conn.prepareStatement(STUDENT_INSERT);
-            pstmt.setString(1, one.getName());
-            pstmt.setString(2, one.getStudentId());
-            pstmt.setString(3, one.getPhoneNumber());
-            pstmt.setString(4, one.getEmail());
+            pstmt.setString(1, student.getName());
+            pstmt.setString(2, student.getStudentId());
+            pstmt.setString(3, student.getPhoneNumber());
+            pstmt.setString(4, student.getEmail());
             pstmt.setString(5, getCurrentDate());
             retval = pstmt.executeUpdate();
             pstmt.close();
@@ -201,13 +203,15 @@ public class StudentsCRUD implements ICRUD {
 //    }
 
     @Override
-    public int update(Students one) {
+    public int update(Object one) {
+        Students student = (Students) one;
+
         int retval = 0;
         PreparedStatement pstmt;
         try {
             pstmt = conn.prepareStatement(STUDENT_UPDATE);
-            pstmt.setString(1, one.getPhoneNumber());
-            pstmt.setInt(2, one.getId());
+            pstmt.setString(1, student.getPhoneNumber());
+            pstmt.setInt(2, student.getId());
             retval = pstmt.executeUpdate();
             pstmt.close();
 
@@ -256,12 +260,14 @@ public class StudentsCRUD implements ICRUD {
     }
 
     @Override
-    public int delete(Students one) {
+    public int delete(Object one) {
+        Students student = (Students) one;
+
         int retval = 0;
         PreparedStatement pstmt;
         try {
             pstmt = conn.prepareStatement(STUDENT_DELETE);
-            pstmt.setInt(1, one.getId());
+            pstmt.setInt(1, student.getId());
             retval = pstmt.executeUpdate();
             pstmt.close();
         } catch (SQLException e) {
