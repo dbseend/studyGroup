@@ -8,14 +8,14 @@ public class Group {
     private int num;
     private int currentNum;
     private String lecture;
-    private ArrayList<Objects> members;
+    private ArrayList<Students> members;
     private int studyTime;
 
     public Group() {
 
     }
 
-    public Group(int id, int num, int currentNum, String lecture, ArrayList<Objects> members, int studyTime) {
+    public Group(int id, int num, int currentNum, String lecture, ArrayList<Students> members, int studyTime) {
         this.id = id;
         this.num = num;
         this.currentNum = currentNum;
@@ -56,11 +56,11 @@ public class Group {
         this.lecture = lecture;
     }
 
-    public ArrayList<Objects> getMembers() {
+    public ArrayList<Students> getMembers() {
         return members;
     }
 
-    public void setMembers(ArrayList<Objects> members) {
+    public void setMembers(ArrayList<Students> members) {
         this.members = members;
     }
 
