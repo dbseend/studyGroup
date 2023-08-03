@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f152730-31c9-4c15-a09c-bc66750dffa3" name="Changes" comment="histudy DB 그룹 파일 생성">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/DB/DBConnectionGroup.java" afterDir="false" />
+    <list default="true" id="0f152730-31c9-4c15-a09c-bc66750dffa3" name="Changes" comment="histudy DB 그룹 add 구현">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/CRUD/GroupsCRUD.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/CRUD/GroupsCRUD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Info/Group.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Info/Group.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/CRUD/StudentsCRUD.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/CRUD/StudentsCRUD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/DB/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/DB/DBConnectionStudent.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +88,14 @@
       <option name="project" value="LOCAL" />
       <updated>1691046549431</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="histudy DB 그룹 add 구현">
+      <created>1691059106529</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1691059106529</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -96,6 +103,7 @@
     <MESSAGE value="histudy DB 학생 기능 구현" />
     <MESSAGE value="histudy DB 학생 예외 처리" />
     <MESSAGE value="histudy DB 그룹 파일 생성" />
-    <option name="LAST_COMMIT_MESSAGE" value="histudy DB 그룹 파일 생성" />
+    <MESSAGE value="histudy DB 그룹 add 구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="histudy DB 그룹 add 구현" />
   </component>
 </project>

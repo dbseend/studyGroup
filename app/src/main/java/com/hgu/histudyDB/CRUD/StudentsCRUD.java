@@ -7,11 +7,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.hgu.histudyDB.DB.DBConnection;
+import com.hgu.histudyDB.DB.DBConnectionStudent;
 import com.hgu.histudyDB.Exceptions.InvalidEmailException;
 import com.hgu.histudyDB.Exceptions.InvalidPhoneNumberException;
 import com.hgu.histudyDB.Exceptions.InvalidStudentIdException;
-import com.hgu.histudyDB.Exceptions.NotFoundationException;
 import com.hgu.histudyDB.Info.Students;
 
 public class StudentsCRUD implements ICRUD {
@@ -40,7 +39,7 @@ public class StudentsCRUD implements ICRUD {
     public StudentsCRUD(Scanner s) {
         list = new ArrayList<>();
         this.s = s;
-        conn = DBConnection.getConnection();
+        conn = DBConnectionStudent.getConnection();
     }
 
     public void loadData(String keyword) {

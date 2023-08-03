@@ -1,16 +1,13 @@
 package com.hgu.histudyDB.CRUD;
 
-import com.hgu.histudyDB.DB.DBConnection;
 import com.hgu.histudyDB.DB.DBConnectionGroup;
 import com.hgu.histudyDB.Info.Group;
 import com.hgu.histudyDB.Info.Students;
-import com.hgu.histudyDB.CRUD.StudentsCRUD;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class GroupsCRUD implements ICRUD {
@@ -144,12 +141,60 @@ public class GroupsCRUD implements ICRUD {
 
     @Override
     public int update(Object one) {
-        return 0;
+        Group group = (Group) one;
+
+        int retval = 0;
+        PreparedStatement pstmt;
+        try {
+            pstmt = conn.prepareStatement(GROUP_UPDATE);
+            pstmt.setObject(1, group.getMembers());
+            pstmt.setInt(2, group.getId());
+            retval = pstmt.executeUpdate();
+            pstmt.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return retval;
     }
+
+    public void joinGroup() {
+        String keyword;
+        int id;
+        String name;
+        int index;
+
+        System.out.println("가입할 과목 검색: ");
+        keyword = s.next();
+        listAll(keyword);
+
+        System.out.println("가입할 번호 선택: ");
+        id = s.nextInt();
+
+        System.out.println("본인 이름 선택: ");
+        name = s.next();
+        studentsCRUD.listAll(name);
+        System.out.println("번호 선택 ");
+        index = s.nextInt();
+//        .add(count, studentsCRUD.list.get(index - 1));
+//        int retval = update(new Group(groupList.get(id-1).getId(), 0, )
+    }
+
 
     @Override
     public int delete(Object one) {
         return 0;
+    }
+
+    public void listAll(String keyword) {
+        loadData(keyword);
+
+        System.out.println("--------------------");
+        for (int i = 0; i < groupList.size(); i++) {
+            System.out.println((i + 1) + " ");
+            System.out.println(groupList.get(i).toString());
+        }
+        System.out.println("--------------------");
     }
 
 }
