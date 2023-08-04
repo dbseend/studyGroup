@@ -17,8 +17,7 @@ import com.hgu.histudyDB.Info.Students;
 public class StudentsCRUD implements ICRUD {
     final String STUDENT_SELECTALL = "select * from StudentsInfo";
     final String STUDENT_SELECT = "select * from StudentsInfo where name like ?";
-    final String STUDENT_INSERT = "insert into StudentsInfo (name, studentId, phoneNumber, email, regdate)"
-            + "values (?,?,?,?,?)";
+    final String STUDENT_INSERT = "insert into StudentsInfo (id, name, studentId, phoneNumber, email, regdate)" + "values (?,?,?,?,?,?)";
     final String STUDENT_UPDATE = "UPDATE StudentsInfo SET name=?, studentId=?, phoneNumber=?, email=? WHERE id=?";
     final String STUDENT_DELETE = "DELETE FROM StudentsInfo WHERE id=?";
 
@@ -31,7 +30,7 @@ public class StudentsCRUD implements ICRUD {
     Scanner s;
     final String fname = "StudentsInfo.txt";
     Connection conn;
-    private int count;
+    private int count = 0;
 
     public StudentsCRUD() {
 
@@ -139,8 +138,8 @@ public class StudentsCRUD implements ICRUD {
             try {
                 System.out.println("전화번호?(-를 사용해서 구분해주세요)");
                 phoneNumber = s.next();
-                char check1 = phoneNumber.charAt(4);
-                char check2 = phoneNumber.charAt(9);
+                char check1 = phoneNumber.charAt(3);
+                char check2 = phoneNumber.charAt(8);
                 if (check1 != '-' || check2 != '-') {
                     throw new InvalidPhoneNumberException(phoneNumberException);
                 }
@@ -163,6 +162,7 @@ public class StudentsCRUD implements ICRUD {
             }
         }
         id = ++count;
+        System.out.println(count);
 
         Students one = new Students(id, name, studentsId, phoneNumber, email);
         int retval = add(one);
@@ -321,8 +321,17 @@ public class StudentsCRUD implements ICRUD {
 
         System.out.println("=> 삭제할 번호 선택: ");
         int id = s.nextInt();
+        int index = list.get(id - 1).getId();
         int retval = delete(new Students(list.get(id - 1).getId(), "", "", "", ""));
         if (retval > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getId() > index) {
+                    list.get(i).setId((list.get(i).getId()) - 1);
+                    update(new Students(list.get(i).getId(), list.get(i).getName(), list.get(i).getStudentId(), list.get(i).getPhoneNumber(), list.get(i).getEmail()));
+                }
+            }
+            count--;
+            System.out.println(count);
             System.out.println("학생 정보가 삭제되었습니다");
         } else {
             System.out.println("학생 정보 삭제 중 오류가 발생했습니다");
