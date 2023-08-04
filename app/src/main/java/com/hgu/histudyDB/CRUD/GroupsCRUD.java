@@ -122,7 +122,7 @@ public class GroupsCRUD implements ICRUD {
         System.out.println("번호 선택 ");
         index = s.nextInt();
         members.add(count, studentsCRUD.list.get(index - 1));
-        System.out.println("스터디를 진행할 과목은? ");
+        System.out.println("스터디를 진행할 과목`은? ");
         lecture = s.next();
         System.out.println("스터디 그룹 인원은? ");
         num = s.nextInt();

@@ -11,6 +11,7 @@ import com.hgu.histudyDB.DB.DBConnectionStudent;
 import com.hgu.histudyDB.Exceptions.InvalidEmailException;
 import com.hgu.histudyDB.Exceptions.InvalidPhoneNumberException;
 import com.hgu.histudyDB.Exceptions.InvalidStudentIdException;
+import com.hgu.histudyDB.Exceptions.NotFoundationException;
 import com.hgu.histudyDB.Info.Students;
 
 public class StudentsCRUD implements ICRUD {
@@ -18,10 +19,10 @@ public class StudentsCRUD implements ICRUD {
     final String STUDENT_SELECT = "select * from StudentsInfo where name like ?";
     final String STUDENT_INSERT = "insert into StudentsInfo (name, studentId, phoneNumber, email, regdate)"
             + "values (?,?,?,?,?)";
-    final String STUDENT_UPDATE = "UPDATE StudentsInfo SET phoneNumber=? WHERE id=?";
+    final String STUDENT_UPDATE = "UPDATE StudentsInfo SET name=?, studentId=?, phoneNumber=?, email=? WHERE id=?";
     final String STUDENT_DELETE = "DELETE FROM StudentsInfo WHERE id=?";
 
-    final String nameException = "해당하는 이름이 없습니다.";
+    final String keywordException = "검색된 이름이 없습니다.";
     final String studentIdException = "학번 형식이 잘못되었습니다.";
     final String phoneNumberException = "전화번호 형식이 잘못되었습니다.";
     final String emailException = "이메일 형식이 잘못되었습니다.";
@@ -42,7 +43,7 @@ public class StudentsCRUD implements ICRUD {
         conn = DBConnectionStudent.getConnection();
     }
 
-    public void loadData(String keyword) {
+    public int loadData(String keyword) {
         list.clear();
 
         try {
@@ -76,11 +77,9 @@ public class StudentsCRUD implements ICRUD {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
 
-//    public ArrayList<Students> getList() {
-//        return list;
-//    }
+        return list.size();
+    }
 
     public String getCurrentDate() {
         LocalDate now = LocalDate.now();
@@ -96,11 +95,12 @@ public class StudentsCRUD implements ICRUD {
         PreparedStatement pstmt;
         try {
             pstmt = conn.prepareStatement(STUDENT_INSERT);
-            pstmt.setString(1, student.getName());
-            pstmt.setString(2, student.getStudentId());
-            pstmt.setString(3, student.getPhoneNumber());
-            pstmt.setString(4, student.getEmail());
-            pstmt.setString(5, getCurrentDate());
+            pstmt.setInt(1, student.getId());
+            pstmt.setString(2, student.getName());
+            pstmt.setString(3, student.getStudentId());
+            pstmt.setString(4, student.getPhoneNumber());
+            pstmt.setString(5, student.getEmail());
+            pstmt.setString(6, getCurrentDate());
             retval = pstmt.executeUpdate();
             pstmt.close();
 
@@ -111,6 +111,8 @@ public class StudentsCRUD implements ICRUD {
     }
 
     public void addStudent() {
+        int id = 0;
+        String name = "";
         String studentsId = "";
         String phoneNumber = "";
         String email = "";
@@ -119,7 +121,7 @@ public class StudentsCRUD implements ICRUD {
         boolean validEmail = false;
 
         System.out.println("이름?");
-        String name = s.next();
+        name = s.next();
         while (!validStudentId) {
             try {
                 System.out.println("학번?");
@@ -135,9 +137,11 @@ public class StudentsCRUD implements ICRUD {
         }
         while (!validPhoneNumber) {
             try {
-                System.out.println("전화번호?");
+                System.out.println("전화번호?(-를 사용해서 구분해주세요)");
                 phoneNumber = s.next();
-                if (phoneNumber.length() != 13) {
+                char check1 = phoneNumber.charAt(4);
+                char check2 = phoneNumber.charAt(9);
+                if (check1 != '-' || check2 != '-') {
                     throw new InvalidPhoneNumberException(phoneNumberException);
                 }
 
@@ -158,8 +162,9 @@ public class StudentsCRUD implements ICRUD {
                 System.out.println(e.getMessage());
             }
         }
+        id = ++count;
 
-        Students one = new Students(count + 1, name, studentsId, phoneNumber, email);
+        Students one = new Students(id, name, studentsId, phoneNumber, email);
         int retval = add(one);
 
         if (retval > 0) {
@@ -170,7 +175,7 @@ public class StudentsCRUD implements ICRUD {
     }
 
 
-    public void listAll(String keyword) {
+    public int listAll(String keyword) {
         loadData(keyword);
 
         System.out.println("--------------------");
@@ -179,27 +184,9 @@ public class StudentsCRUD implements ICRUD {
             System.out.println(list.get(i).toString());
         }
         System.out.println("--------------------");
-    }
 
-//    public ArrayList<Integer> listAll(String keyword) {
-//        ArrayList<Integer> idList = new ArrayList<>();
-//        int j = 0;
-//
-//        System.out.println("--------------------");
-//        for (int i = 0; i < list.size(); i++) {
-//            String name = list.get(i).getName();
-//            if (!name.contains(keyword)) {
-//                continue;
-//            }
-//            System.out.println((j + 1) + " ");
-//            System.out.println(list.get(i).toString());
-//            idList.add(i);
-//            j++;
-//        }
-//        System.out.println("--------------------");
-//
-//        return idList;
-//    }
+        return list.size();
+    }
 
     @Override
     public int update(Object one) {
@@ -209,8 +196,11 @@ public class StudentsCRUD implements ICRUD {
         PreparedStatement pstmt;
         try {
             pstmt = conn.prepareStatement(STUDENT_UPDATE);
-            pstmt.setString(1, student.getPhoneNumber());
-            pstmt.setInt(2, student.getId());
+            pstmt.setString(1, student.getName());
+            pstmt.setString(2, student.getStudentId());
+            pstmt.setString(3, student.getPhoneNumber());
+            pstmt.setString(4, student.getEmail());
+            pstmt.setInt(5, student.getId());
             retval = pstmt.executeUpdate();
             pstmt.close();
 
@@ -221,36 +211,70 @@ public class StudentsCRUD implements ICRUD {
     }
 
     public void updateStudent() {
+        int size = 0;
+        int retval = 0;
         String keyword = "";
         int id = 0;
         String phoneNumber = "";
-
+        String email = "";
         boolean validKeyword = false;
         boolean validId = false;
         boolean validPhoneNumber = false;
+        boolean validEmail = false;
 
-        System.out.println("=> 수정할 학생 이름 검색: ");
-        keyword = s.next();
-        listAll(keyword);
+        while (!validKeyword) {
+            try {
+                System.out.println("=> 수정할 학생 이름 검색: ");
+                keyword = s.next();
+                size = loadData(keyword);
+
+                if (size == 0) {
+                    throw new NotFoundationException(keywordException);
+                }
+                validKeyword = true;
+                listAll(keyword);
+            } catch (NotFoundationException e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
         System.out.println("=> 수정할 번호 선택: ");
         id = s.nextInt();
 
-        while (!validPhoneNumber) {
-            try {
-                System.out.println("=> 전화번호 입력: ");
-                phoneNumber = s.next();
+        System.out.println("=> 무엇을 수정하시겠습니까?(1.전화번호 2.이메일)");
+        int select = s.nextInt();
+        if (select == 1) {
+            while (!validPhoneNumber) {
+                try {
+                    System.out.println("=> 전화번호 입력: ");
+                    phoneNumber = s.next();
 
-                if (phoneNumber.length() != 13) {
-                    throw new InvalidPhoneNumberException(phoneNumberException);
+                    if (phoneNumber.length() != 13) {
+                        throw new InvalidPhoneNumberException(phoneNumberException);
+                    }
+                    validPhoneNumber = true;
+                    retval = update(new Students(list.get(id - 1).getId(), list.get(id - 1).getName(), list.get(id - 1).getStudentId(), phoneNumber, list.get(id - 1).getEmail()));
+                } catch (InvalidPhoneNumberException e) {
+                    System.out.println(e.getMessage());
                 }
-                validPhoneNumber = true;
-            } catch (InvalidPhoneNumberException e) {
-                System.out.println(e.getMessage());
+            }
+        } else if (select == 2) {
+            while (!validEmail) {
+                try {
+                    System.out.println("=> 이메일 입력: ");
+                    email = s.next();
+
+                    if (!email.contains("@")) {
+                        throw new InvalidEmailException(emailException);
+                    }
+                    validEmail = true;
+                    retval = update(new Students(list.get(id - 1).getId(), list.get(id - 1).getName(), list.get(id - 1).getStudentId(), list.get(id - 1).getPhoneNumber(), email));
+                } catch (InvalidEmailException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
-        int retval = update(new Students(list.get(id - 1).getId(), list.get(id - 1).getName(), "", phoneNumber, ""));
-        System.out.println(list.get(id - 1).getName());
+
         if (retval > 0) {
             System.out.println("학생 정보가 수정되었습니다");
         } else {
@@ -276,9 +300,24 @@ public class StudentsCRUD implements ICRUD {
     }
 
     public void deleteStudent() {
-        System.out.println("=> 삭제할 학생 이름 검색: ");
-        String keyword = s.next();
-        listAll(keyword);
+        String keyword;
+        int size;
+        boolean validKeyword = false;
+        while (!validKeyword) {
+            try {
+                System.out.println("=> 수정할 학생 이름 검색: ");
+                keyword = s.next();
+                size = loadData(keyword);
+
+                if (size == 0) {
+                    throw new NotFoundationException(keywordException);
+                }
+                validKeyword = true;
+                listAll(keyword);
+            } catch (NotFoundationException e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
         System.out.println("=> 삭제할 번호 선택: ");
         int id = s.nextInt();
@@ -295,32 +334,6 @@ public class StudentsCRUD implements ICRUD {
         String keyword = s.next();
         listAll(keyword);
     }
-
-//	public void loadFile() {
-//		try {
-//			BufferedReader br = new BufferedReader(new FileReader(fname));
-//
-//			String line;
-//			int count = 0;
-//			while (true) {
-//				line = br.readLine();
-//				if (line == null) {
-//					break;
-//				}
-//				String data[] = line.split("\\|");
-//				String name = data[0];
-//				int studentId = Integer.parseInt(data[1]);
-//				String phoneNumber = data[2];
-//				String email = data[3];
-//				list.add(new Students(name, studentId, phoneNumber, email));
-//				count++;
-//			}
-//			br.close();
-//			System.out.println("==> " + count + "개 로딩 완료!!");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
 
     public void saveFile() {
         try {

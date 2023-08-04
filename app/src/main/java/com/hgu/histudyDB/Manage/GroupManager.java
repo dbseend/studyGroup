@@ -30,8 +30,8 @@ public class GroupManager {
 
             if (menu == 1) {
                 groupsCRUD.addGroups();
-//            } else if (menu == 2) {
-//                studentsCRUD.listAll("");
+            } else if (menu == 2) {
+                groupsCRUD.listAll("");
 //            } else if (menu == 3) {
 //                studentsCRUD.updateStudent();
 //            } else if (menu == 4) {

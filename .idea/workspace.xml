@@ -8,7 +8,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/CRUD/GroupsCRUD.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/CRUD/GroupsCRUD.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/CRUD/StudentsCRUD.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/CRUD/StudentsCRUD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/DB/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/DB/DBConnectionStudent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Manage/GroupManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Manage/GroupManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Manage/StudentsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Manage/StudentsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myStudentsList.db" beforeDir="false" afterPath="$PROJECT_DIR$/myStudentsList.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +97,14 @@
       <option name="project" value="LOCAL" />
       <updated>1691059106529</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="histudy DB 그룹 add 구현">
+      <created>1691060588506</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1691060588506</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
