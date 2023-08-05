@@ -15,8 +15,8 @@ public class GroupManager {
 
     public int selectMenu() {
 
-        System.out.println("*****histudy*****\r\n" + "1. 그룹 정보 등록\r\n" + "2. 그룹 정보 읽기\r\n" + "3. 그룹 정보 수정\r\n"
-                + "4. 그룹 정보 삭제\r\n" + "5. 그룹 정보 저장\r\n" + "6. 그룹 정보 검색\r\n" + "8. 종료하기\r\n"
+        System.out.println("*****histudy*****\r\n" + "1. 그룹 정보 등록\r\n" + "2. 그룹 정보 읽기\r\n" + "3. 그룹 가입\r\n"
+                + "4. 공부 시간 기록\r\n" + "5. 그룹 삭제\r\n" + "6. 그룹 검색\r\n" + "7. 종료하기\r\n"
                 + "****************\r\n" + "=> 원하는 메뉴는?");
         return s.nextInt();
 
@@ -32,14 +32,14 @@ public class GroupManager {
                 groupsCRUD.addGroups();
             } else if (menu == 2) {
                 groupsCRUD.listAll("");
-//            } else if (menu == 3) {
-//                studentsCRUD.updateStudent();
-//            } else if (menu == 4) {
-//                studentsCRUD.deleteStudent();
-//            } else if (menu == 5) {
-//                studentsCRUD.saveFile();
-//            } else if (menu == 6) {
-//                studentsCRUD.searchStudent();
+            } else if (menu == 3) {
+                groupsCRUD.joinGroup();
+            } else if (menu == 4) {
+                groupsCRUD.addStudyTime();
+            } else if (menu == 5) {
+                groupsCRUD.deleteGroup();
+            } else if (menu == 6) {
+                groupsCRUD.searchGroup();
             } else if (menu == 7) {
                 break;
             }

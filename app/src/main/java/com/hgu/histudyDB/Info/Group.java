@@ -8,14 +8,14 @@ public class Group {
     private int num;
     private int currentNum;
     private String lecture;
-    private ArrayList<Students> members;
+    private ArrayList<String> members;
     private int studyTime;
 
     public Group() {
 
     }
 
-    public Group(int id, int num, int currentNum, String lecture, ArrayList<Students> members, int studyTime) {
+    public Group(int id, int num, int currentNum, String lecture, ArrayList<String> members, int studyTime) {
         this.id = id;
         this.num = num;
         this.currentNum = currentNum;
@@ -56,11 +56,11 @@ public class Group {
         this.lecture = lecture;
     }
 
-    public ArrayList<Students> getMembers() {
+    public ArrayList<String> getMembers() {
         return members;
     }
 
-    public void setMembers(ArrayList<Students> members) {
+    public void setMembers(ArrayList<String> members) {
         this.members = members;
     }
 
@@ -70,5 +70,15 @@ public class Group {
 
     public void setStudyTime(int studyTime) {
         this.studyTime = studyTime;
+    }
+
+    @Override
+    /**
+     * String.format(): 문자열의 형식을 설정하는 메소드
+     */
+    public String toString() {
+        String str = String.format("%10s", num) + String.format("%15s", currentNum) + String.format("%15s", lecture)
+                + String.format("%15s", studyTime) + String.format("%15s", members);
+        return str;
     }
 }

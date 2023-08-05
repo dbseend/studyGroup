@@ -4,13 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f152730-31c9-4c15-a09c-bc66750dffa3" name="Changes" comment="histudy DB 학생 완성">
+    <list default="true" id="0f152730-31c9-4c15-a09c-bc66750dffa3" name="Changes" comment="histudy DB 학생 인덱스 수정 필요">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/CRUD/StudentsCRUD.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/CRUD/StudentsCRUD.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/DB/DBConnection.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/Manage/StudentsManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/classes/java/main/com/hgu/histudyDB/Manage/StudentsManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/App.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/CRUD/GroupCRUD.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/CRUD/ICRUD.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/CRUD/ICRUD.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/CRUD/StudentsCRUD.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/CRUD/StudentsCRUD.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/DB/DBConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/Info/Group.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/Info/Group.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/Info/Lecture.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/Info/Students.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/Info/Students.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/Manage/GroupManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/Manage/GroupManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/Manage/StudentsManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/bin/main/com/hgu/histudyDB/Manage/StudentsManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/CRUD/GroupsCRUD.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/CRUD/GroupsCRUD.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/CRUD/StudentsCRUD.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/CRUD/StudentsCRUD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myStudentsList.db" beforeDir="false" afterPath="$PROJECT_DIR$/myStudentsList.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Info/Group.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Info/Group.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Manage/GroupManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hgu/histudyDB/Manage/GroupManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,12 +47,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "ToolWindowRun.ShowToolbar": "false"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="histduyDB" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.hgu.histudyDB.App" />

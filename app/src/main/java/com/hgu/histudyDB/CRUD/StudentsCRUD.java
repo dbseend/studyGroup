@@ -305,7 +305,7 @@ public class StudentsCRUD implements ICRUD {
         boolean validKeyword = false;
         while (!validKeyword) {
             try {
-                System.out.println("=> 수정할 학생 이름 검색: ");
+                System.out.println("=> 삭제할 학생 이름 검색: ");
                 keyword = s.next();
                 size = loadData(keyword);
 

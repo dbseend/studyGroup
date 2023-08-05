@@ -8,14 +8,15 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class GroupsCRUD implements ICRUD {
     final String GROUP_SELECTALL = "select * from GroupsInfo";
-    final String GROUP_SELECT = "select * from GroupsInfo where name like ?";
+    final String GROUP_SELECT = "select * from GroupsInfo where lecture like ?";
     final String GROUP_INSERT = "insert into GroupsInfo (id, num, currentNum, lecture, studyTime, members, regdate)"
             + "values (?,?,?,?,?,?,?)";
-    final String GROUP_UPDATE = "UPDATE GroupsInfo SET phoneNumber=? WHERE id=?";
+    final String GROUP_UPDATE = "UPDATE GroupsInfo SET num=?, currentNum=?, lecture=?, studyTime=?, members=? WHERE id=?";
     final String GROUP_DELETE = "DELETE FROM GroupsInfo WHERE id=?";
     Connection conn;
 
@@ -24,6 +25,7 @@ public class GroupsCRUD implements ICRUD {
     ArrayList<Group> groupList;
     final String fname = "GroupsInfo.txt";
     private int count = 0;
+    ArrayList<String> members = new ArrayList<>();
 
     Students student;
     StudentsCRUD studentsCRUD = new StudentsCRUD(s);
@@ -63,9 +65,13 @@ public class GroupsCRUD implements ICRUD {
                 int num = rs.getInt("num");
                 int currentNum = rs.getInt("currentNum");
                 String lecture = rs.getString("lecture");
-                ArrayList<Students> members = (ArrayList<Students>) rs.getObject("members");
+                //class java.lang.String cannot be cast to class java.util.ArrayList
+//                ArrayList<String> members = (ArrayList<String>) rs.getString("members");
+                String membersString = rs.getString("members");
+                ArrayList<String> member = new ArrayList<>(Arrays.asList(membersString.split(",")));
                 int studyTime = rs.getInt("studyTime");
-                groupList.add(new Group(id, num, currentNum, lecture, members, studyTime));
+                groupList.add(new Group(id, num, currentNum, lecture, member, studyTime));
+                members = member;
                 count++;
             }
             rs.close();
@@ -113,7 +119,6 @@ public class GroupsCRUD implements ICRUD {
         int num = 0;
         int currentNum = 0;
         String lecture = "";
-        ArrayList<Students> members = new ArrayList<>();
         int studyTime = 0;
 
         System.out.println("스터디 리더(본인)의 이름 찾기? ");
@@ -121,7 +126,7 @@ public class GroupsCRUD implements ICRUD {
         studentsCRUD.listAll(leader);
         System.out.println("번호 선택 ");
         index = s.nextInt();
-        members.add(count, studentsCRUD.list.get(index - 1));
+        members.add(count, studentsCRUD.list.get(index - 1).getName());
         System.out.println("스터디를 진행할 과목`은? ");
         lecture = s.next();
         System.out.println("스터디 그룹 인원은? ");
@@ -147,8 +152,12 @@ public class GroupsCRUD implements ICRUD {
         PreparedStatement pstmt;
         try {
             pstmt = conn.prepareStatement(GROUP_UPDATE);
-            pstmt.setObject(1, group.getMembers());
-            pstmt.setInt(2, group.getId());
+            pstmt.setInt(1, group.getNum());
+            pstmt.setInt(2, group.getCurrentNum());
+            pstmt.setString(3, group.getLecture());
+            pstmt.setInt(4, group.getStudyTime());
+            pstmt.setString(5, String.valueOf(group.getMembers()));
+            pstmt.setInt(6, group.getId());
             retval = pstmt.executeUpdate();
             pstmt.close();
 
@@ -176,14 +185,73 @@ public class GroupsCRUD implements ICRUD {
         studentsCRUD.listAll(name);
         System.out.println("번호 선택 ");
         index = s.nextInt();
-//        .add(count, studentsCRUD.list.get(index - 1));
-//        int retval = update(new Group(groupList.get(id-1).getId(), 0, )
+        System.out.println(members.size());
+        members.add(count, studentsCRUD.list.get(index - 1).getName());
+        Group t = groupList.get(id - 1);
+        t.setCurrentNum(t.getCurrentNum() + 1);
+
+        int retval = update(new Group(t.getId(), t.getNum(), t.getCurrentNum(), t.getLecture(), t.getMembers(), t.getStudyTime()));
+        if (retval > 0) {
+            System.out.println("그룹에 추가 되었습니다.");
+        } else {
+            System.out.println("그룹에 추가 중 오류가 발생했습니다");
+        }
+    }
+
+    public void addStudyTime() {
+        String keyword;
+        int id;
+        int time;
+
+        System.out.println("공부한 스터디 그룹 과목 검색: ");
+        keyword = s.next();
+        listAll(keyword);
+
+        System.out.println("해당하는 번호 선택: ");
+        id = s.nextInt();
+
+        System.out.println("공부한 시간 입력(분단위)");
+        time = s.nextInt();
+        Group t = groupList.get(id - 1);
+        t.setStudyTime(t.getStudyTime() + time);
+
+        int retval = update(new Group(t.getId(), t.getNum(), t.getCurrentNum(), t.getLecture(), t.getMembers(), t.getStudyTime()));
+        if (retval > 0) {
+            System.out.println("그룹에 추가 되었습니다.");
+        } else {
+            System.out.println("그룹에 추가 중 오류가 발생했습니다");
+        }
     }
 
 
     @Override
     public int delete(Object one) {
-        return 0;
+        Group group = (Group) one;
+
+        int retval = 0;
+        PreparedStatement pstmt;
+        try {
+            pstmt = conn.prepareStatement(GROUP_DELETE);
+            pstmt.setInt(1, group.getId());
+            retval = pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return retval;
+    }
+
+    public void deleteGroup() {
+        System.out.println("삭제할 그룹은? ");
+        listAll("");
+        int id = s.nextInt();
+        int index = groupList.get(id - 1).getId();
+        int retval = delete(new Group(groupList.get(id - 1).getId(), 0, 0, "", null, 0));
+        if (retval > 0) {
+            System.out.println("그룹 정보가 삭제되었습니다");
+        } else {
+            System.out.println("그룹 정보 삭제 중 오류가 발생했습니다");
+        }
     }
 
     public void listAll(String keyword) {
@@ -195,6 +263,12 @@ public class GroupsCRUD implements ICRUD {
             System.out.println(groupList.get(i).toString());
         }
         System.out.println("--------------------");
+    }
+
+    public void searchGroup() {
+        System.out.println("=> 검색할 과목 이름은? ");
+        String keyword = s.next();
+        listAll(keyword);
     }
 
 }
