@@ -120,7 +120,7 @@ public class StudentsCRUD implements ICRUD {
 
     public String getCurrentDate() {
         LocalDate now = LocalDate.now();
-        DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy--MM--dd");
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         return f.format(now);
     }
 
@@ -157,7 +157,6 @@ public class StudentsCRUD implements ICRUD {
         boolean validStudentId = false;
         boolean validPhoneNumber = false;
         boolean validEmail = false;
-        System.out.println("카운트는 " + count);
         System.out.println("이름?");
         name = s.next();
         while (!validStudentId) {
@@ -216,7 +215,6 @@ public class StudentsCRUD implements ICRUD {
 
     public int listAll(String keyword) {
         loadSearchData(keyword);
-        System.out.println("카운트는 " + searchCount);
         System.out.println("--------------------");
         for (int i = 0; i < searchList.size(); i++) {
             System.out.println((i + 1) + " " + searchList.get(i).toString());
@@ -410,7 +408,6 @@ public class StudentsCRUD implements ICRUD {
                 loadData("");
                 for (int i = 0; i < count; i++) {
                     if (list.get(i).getId() > index) {
-                        System.out.println("찾음");
                         updateIndex(new Students(list.get(i).getId(), list.get(i).getName(), list.get(i).getStudentId(), list.get(i).getPhoneNumber(), list.get(i).getEmail()));
                     }
                 }
