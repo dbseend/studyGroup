@@ -8,10 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.hgu.histudyDB.DB.DBConnectionStudent;
-import com.hgu.histudyDB.Exceptions.InvalidEmailException;
-import com.hgu.histudyDB.Exceptions.InvalidPhoneNumberException;
-import com.hgu.histudyDB.Exceptions.InvalidStudentIdException;
-import com.hgu.histudyDB.Exceptions.NotFoundationException;
+import com.hgu.histudyDB.Exceptions.*;
 import com.hgu.histudyDB.Info.Students;
 
 public class StudentsCRUD implements ICRUD {
@@ -19,18 +16,22 @@ public class StudentsCRUD implements ICRUD {
     final String STUDENT_SELECT = "select * from StudentsInfo where name like ?";
     final String STUDENT_INSERT = "insert into StudentsInfo (id, name, studentId, phoneNumber, email, regdate)" + "values (?,?,?,?,?,?)";
     final String STUDENT_UPDATE = "UPDATE StudentsInfo SET name=?, studentId=?, phoneNumber=?, email=? WHERE id=?";
+    final String STUDENT_UPDATE_INDEX = "UPDATE StudentsInfo SET id=?, name=?, studentId=?, phoneNumber=?, email=? WHERE id=?";
     final String STUDENT_DELETE = "DELETE FROM StudentsInfo WHERE id=?";
 
+    final String idException = "잘못된 번호 입니다.";
     final String keywordException = "검색된 이름이 없습니다.";
     final String studentIdException = "학번 형식이 잘못되었습니다.";
     final String phoneNumberException = "전화번호 형식이 잘못되었습니다.";
     final String emailException = "이메일 형식이 잘못되었습니다.";
 
+    Connection conn;
     ArrayList<Students> list;
+    ArrayList<Students> searchList;
     Scanner s;
     final String fname = "StudentsInfo.txt";
-    Connection conn;
     private int count = 0;
+    private int searchCount = 0;
 
     public StudentsCRUD() {
 
@@ -38,12 +39,14 @@ public class StudentsCRUD implements ICRUD {
 
     public StudentsCRUD(Scanner s) {
         list = new ArrayList<>();
+        searchList = new ArrayList<>();
         this.s = s;
         conn = DBConnectionStudent.getConnection();
     }
 
     public int loadData(String keyword) {
         list.clear();
+        count = 0;
 
         try {
             PreparedStatement stmt;
@@ -77,7 +80,42 @@ public class StudentsCRUD implements ICRUD {
             throw new RuntimeException(e);
         }
 
-        return list.size();
+        return count;
+    }
+
+    public int loadSearchData(String keyword) {
+        searchList.clear();
+        searchCount = 0;
+
+        try {
+            PreparedStatement stmt;
+            ResultSet rs;
+
+            stmt = conn.prepareStatement(STUDENT_SELECT);
+            stmt.setString(1, "%" + keyword + "%");
+            rs = stmt.executeQuery();
+
+
+            while (true) {
+                if (!rs.next()) {
+                    break;
+                }
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String studentId = rs.getString("studentId");
+                String phoneNumber = rs.getString("phoneNumber");
+                String email = rs.getString("email");
+                searchList.add(new Students(id, name, studentId, phoneNumber, email));
+                searchCount++;
+            }
+            rs.close();
+            stmt.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return searchCount;
     }
 
     public String getCurrentDate() {
@@ -89,9 +127,9 @@ public class StudentsCRUD implements ICRUD {
     @Override
     public int add(Object one) {
         Students student = (Students) one;
-
         int retval = 0;
         PreparedStatement pstmt;
+
         try {
             pstmt = conn.prepareStatement(STUDENT_INSERT);
             pstmt.setInt(1, student.getId());
@@ -106,6 +144,7 @@ public class StudentsCRUD implements ICRUD {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
         return retval;
     }
 
@@ -118,7 +157,7 @@ public class StudentsCRUD implements ICRUD {
         boolean validStudentId = false;
         boolean validPhoneNumber = false;
         boolean validEmail = false;
-
+        System.out.println("카운트는 " + count);
         System.out.println("이름?");
         name = s.next();
         while (!validStudentId) {
@@ -161,8 +200,8 @@ public class StudentsCRUD implements ICRUD {
                 System.out.println(e.getMessage());
             }
         }
-        id = ++count;
-        System.out.println(count);
+        id = count + 1;
+        System.out.println(id);
 
         Students one = new Students(id, name, studentsId, phoneNumber, email);
         int retval = add(one);
@@ -176,12 +215,11 @@ public class StudentsCRUD implements ICRUD {
 
 
     public int listAll(String keyword) {
-        loadData(keyword);
-
+        loadSearchData(keyword);
+        System.out.println("카운트는 " + searchCount);
         System.out.println("--------------------");
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println((i + 1) + " ");
-            System.out.println(list.get(i).toString());
+        for (int i = 0; i < searchList.size(); i++) {
+            System.out.println((i + 1) + " " + searchList.get(i).toString());
         }
         System.out.println("--------------------");
 
@@ -191,9 +229,9 @@ public class StudentsCRUD implements ICRUD {
     @Override
     public int update(Object one) {
         Students student = (Students) one;
-
         int retval = 0;
         PreparedStatement pstmt;
+
         try {
             pstmt = conn.prepareStatement(STUDENT_UPDATE);
             pstmt.setString(1, student.getName());
@@ -207,6 +245,7 @@ public class StudentsCRUD implements ICRUD {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
         return retval;
     }
 
@@ -215,79 +254,120 @@ public class StudentsCRUD implements ICRUD {
         int retval = 0;
         String keyword = "";
         int id = 0;
+        int index = 0;
         String phoneNumber = "";
         String email = "";
-        boolean validKeyword = false;
         boolean validId = false;
+        boolean validKeyword = false;
         boolean validPhoneNumber = false;
         boolean validEmail = false;
 
-        while (!validKeyword) {
-            try {
-                System.out.println("=> 수정할 학생 이름 검색: ");
-                keyword = s.next();
-                size = loadData(keyword);
+        try {
+            System.out.println("=> 수정할 학생 이름 검색: ");
+            keyword = s.next();
+            size = loadSearchData(keyword);
 
-                if (size == 0) {
-                    throw new NotFoundationException(keywordException);
-                }
-                validKeyword = true;
-                listAll(keyword);
-            } catch (NotFoundationException e) {
-                System.out.println(e.getMessage());
+            if (size == 0) {
+                throw new NotFoundationException(keywordException);
             }
+            validKeyword = true;
+            listAll(keyword);
+        } catch (NotFoundationException e) {
+            System.out.println(e.getMessage());
         }
 
-        System.out.println("=> 수정할 번호 선택: ");
-        id = s.nextInt();
+        if (validKeyword == true) {
 
-        System.out.println("=> 무엇을 수정하시겠습니까?(1.전화번호 2.이메일)");
-        int select = s.nextInt();
-        if (select == 1) {
-            while (!validPhoneNumber) {
+            while (!validId) {
                 try {
-                    System.out.println("=> 전화번호 입력: ");
-                    phoneNumber = s.next();
+                    System.out.println("=> 수정할 번호 선택: ");
+                    id = s.nextInt();
 
-                    if (phoneNumber.length() != 13) {
-                        throw new InvalidPhoneNumberException(phoneNumberException);
+                    if (id - 1 < 0 || id - 1 > size - 1) {
+                        throw new InvalidIdException(idException);
                     }
-                    validPhoneNumber = true;
-                    retval = update(new Students(list.get(id - 1).getId(), list.get(id - 1).getName(), list.get(id - 1).getStudentId(), phoneNumber, list.get(id - 1).getEmail()));
-                } catch (InvalidPhoneNumberException e) {
+                    validId = true;
+                    index = searchList.get(id - 1).getId();
+                } catch (InvalidIdException e) {
                     System.out.println(e.getMessage());
                 }
             }
-        } else if (select == 2) {
-            while (!validEmail) {
-                try {
-                    System.out.println("=> 이메일 입력: ");
-                    email = s.next();
 
-                    if (!email.contains("@")) {
-                        throw new InvalidEmailException(emailException);
+            System.out.println("=> 무엇을 수정하시겠습니까?(1.전화번호 2.이메일)");
+            String select = s.next();
+            System.out.println(select);
+            if (select.equals("1") || select.equals("전화번호")) {
+                while (!validPhoneNumber) {
+                    try {
+                        System.out.println("=> 전화번호 입력: ");
+                        phoneNumber = s.next();
+
+                        if (phoneNumber.length() != 13) {
+                            throw new InvalidPhoneNumberException(phoneNumberException);
+                        }
+                        validPhoneNumber = true;
+                        Students t = list.get(index - 1);
+                        retval = update(new Students(t.getId(), t.getName(), t.getStudentId(), phoneNumber, t.getEmail()));
+                    } catch (InvalidPhoneNumberException e) {
+                        System.out.println(e.getMessage());
                     }
-                    validEmail = true;
-                    retval = update(new Students(list.get(id - 1).getId(), list.get(id - 1).getName(), list.get(id - 1).getStudentId(), list.get(id - 1).getPhoneNumber(), email));
-                } catch (InvalidEmailException e) {
-                    System.out.println(e.getMessage());
+                }
+            } else if (select == "2" || select == "이메일") {
+                while (!validEmail) {
+                    try {
+                        System.out.println("=> 이메일 입력: ");
+                        email = s.next();
+
+                        if (!email.contains("@")) {
+                            throw new InvalidEmailException(emailException);
+                        }
+                        validEmail = true;
+                        Students t = list.get(index - 1);
+                        retval = update(new Students(t.getId(), t.getName(), t.getStudentId(), phoneNumber, t.getEmail()));
+                    } catch (InvalidEmailException e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
             }
         }
 
         if (retval > 0) {
             System.out.println("학생 정보가 수정되었습니다");
+
         } else {
             System.out.println("학생 정보 수정 중 오류가 발생했습니다");
         }
     }
 
+    public int updateIndex(Object one) {
+        Students student = (Students) one;
+        int retval = 0;
+        PreparedStatement pstmt;
+
+        try {
+            pstmt = conn.prepareStatement(STUDENT_UPDATE_INDEX);
+            pstmt.setInt(1, student.getId() - 1);
+            pstmt.setString(2, student.getName());
+            pstmt.setString(3, student.getStudentId());
+            pstmt.setString(4, student.getPhoneNumber());
+            pstmt.setString(5, student.getEmail());
+            pstmt.setInt(6, student.getId());
+            retval = pstmt.executeUpdate();
+            pstmt.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return retval;
+    }
+
     @Override
     public int delete(Object one) {
         Students student = (Students) one;
-
         int retval = 0;
         PreparedStatement pstmt;
+
         try {
             pstmt = conn.prepareStatement(STUDENT_DELETE);
             pstmt.setInt(1, student.getId());
@@ -296,45 +376,48 @@ public class StudentsCRUD implements ICRUD {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        count--;
         return retval;
     }
 
     public void deleteStudent() {
-        String keyword;
-        int size;
+        String keyword = "";
+        int size = 0;
         boolean validKeyword = false;
-        while (!validKeyword) {
-            try {
-                System.out.println("=> 삭제할 학생 이름 검색: ");
-                keyword = s.next();
-                size = loadData(keyword);
 
-                if (size == 0) {
-                    throw new NotFoundationException(keywordException);
-                }
-                validKeyword = true;
-                listAll(keyword);
-            } catch (NotFoundationException e) {
-                System.out.println(e.getMessage());
+        try {
+            System.out.println("=> 삭제할 학생 이름 검색: ");
+            keyword = s.next();
+            size = loadSearchData(keyword);
+
+            if (size == 0) {
+                throw new NotFoundationException(keywordException);
             }
+            validKeyword = true;
+            listAll(keyword);
+        } catch (NotFoundationException e) {
+            System.out.println(e.getMessage());
         }
 
-        System.out.println("=> 삭제할 번호 선택: ");
-        int id = s.nextInt();
-        int index = list.get(id - 1).getId();
-        int retval = delete(new Students(list.get(id - 1).getId(), "", "", "", ""));
-        if (retval > 0) {
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getId() > index) {
-                    list.get(i).setId((list.get(i).getId()) - 1);
-                    update(new Students(list.get(i).getId(), list.get(i).getName(), list.get(i).getStudentId(), list.get(i).getPhoneNumber(), list.get(i).getEmail()));
+        if (validKeyword == true) {
+            System.out.println("=> 삭제할 번호 선택: ");
+            int id = s.nextInt();
+            int index = list.get(id - 1).getId();
+            Students t = list.get(index - 1);
+            int retval = delete(new Students(t.getId(), "", "", "", ""));
+            if (retval > 0) {
+                loadData("");
+                for (int i = 0; i < count; i++) {
+                    if (list.get(i).getId() > index) {
+                        System.out.println("찾음");
+                        updateIndex(new Students(list.get(i).getId(), list.get(i).getName(), list.get(i).getStudentId(), list.get(i).getPhoneNumber(), list.get(i).getEmail()));
+                    }
                 }
+                System.out.println("학생 정보가 삭제되었습니다");
+            } else {
+                System.out.println("학생 정보 삭제 중 오류가 발생했습니다");
             }
-            count--;
-            System.out.println(count);
-            System.out.println("학생 정보가 삭제되었습니다");
-        } else {
-            System.out.println("학생 정보 삭제 중 오류가 발생했습니다");
         }
     }
 
