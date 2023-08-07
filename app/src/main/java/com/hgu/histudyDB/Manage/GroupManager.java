@@ -26,6 +26,7 @@ public class GroupManager {
 //		studentsCRUD.loadFile();
 
         while (true) {
+            groupsCRUD.loadData();
             int menu = selectMenu();
 
             if (menu == 1) {

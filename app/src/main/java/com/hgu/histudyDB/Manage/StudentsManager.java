@@ -26,7 +26,7 @@ public class StudentsManager {
 //		studentsCRUD.loadFile();
 
         while (true) {
-            studentsCRUD.loadData("");
+            studentsCRUD.loadData();
             int menu = selectMenu();
 
             if (menu == 1) {

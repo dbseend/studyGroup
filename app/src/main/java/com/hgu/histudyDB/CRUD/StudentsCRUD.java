@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.hgu.histudyDB.DB.DBConnectionStudent;
+import com.hgu.histudyDB.DB.DBConnection;
 import com.hgu.histudyDB.Exceptions.*;
 import com.hgu.histudyDB.Info.Students;
 
@@ -41,10 +41,10 @@ public class StudentsCRUD implements ICRUD {
         list = new ArrayList<>();
         searchList = new ArrayList<>();
         this.s = s;
-        conn = DBConnectionStudent.getConnection();
+        conn = DBConnection.getConnection();
     }
 
-    public int loadData(String keyword) {
+    public int loadData() {
         list.clear();
         count = 0;
 
@@ -52,14 +52,9 @@ public class StudentsCRUD implements ICRUD {
             PreparedStatement stmt;
             ResultSet rs;
 
-            if (keyword.equals("")) {
-                stmt = conn.prepareStatement(STUDENT_SELECTALL);
-                rs = stmt.executeQuery();
-            } else {
-                stmt = conn.prepareStatement(STUDENT_SELECT);
-                stmt.setString(1, "%" + keyword + "%");
-                rs = stmt.executeQuery();
-            }
+            stmt = conn.prepareStatement(STUDENT_SELECTALL);
+            rs = stmt.executeQuery();
+
 
             while (true) {
                 if (!rs.next()) {
@@ -255,8 +250,8 @@ public class StudentsCRUD implements ICRUD {
         int index = 0;
         String phoneNumber = "";
         String email = "";
-        boolean validId = false;
         boolean validKeyword = false;
+        boolean validId = false;
         boolean validPhoneNumber = false;
         boolean validEmail = false;
 
@@ -405,7 +400,7 @@ public class StudentsCRUD implements ICRUD {
             Students t = list.get(index - 1);
             int retval = delete(new Students(t.getId(), "", "", "", ""));
             if (retval > 0) {
-                loadData("");
+                loadData();
                 for (int i = 0; i < count; i++) {
                     if (list.get(i).getId() > index) {
                         updateIndex(new Students(list.get(i).getId(), list.get(i).getName(), list.get(i).getStudentId(), list.get(i).getPhoneNumber(), list.get(i).getEmail()));
