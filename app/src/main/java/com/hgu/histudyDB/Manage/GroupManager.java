@@ -42,6 +42,8 @@ public class GroupManager {
             } else if (menu == 6) {
                 groupsCRUD.searchGroup();
             } else if (menu == 7) {
+                groupsCRUD.rank();
+            } else if (menu == 8) {
                 break;
             }
         }

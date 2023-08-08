@@ -2,20 +2,21 @@ package com.hgu.histudyDB.Info;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Group {
     private int id;
     private int num;
     private int currentNum;
     private String lecture;
-    private ArrayList<String> members;
+    private ArrayList<Integer> members;
     private int studyTime;
 
     public Group() {
 
     }
 
-    public Group(int id, int num, int currentNum, String lecture, ArrayList<String> members, int studyTime) {
+    public Group(int id, int num, int currentNum, String lecture, ArrayList<Integer> members, int studyTime) {
         this.id = id;
         this.num = num;
         this.currentNum = currentNum;
@@ -56,11 +57,11 @@ public class Group {
         this.lecture = lecture;
     }
 
-    public ArrayList<String> getMembers() {
+    public ArrayList<Integer> getMembers() {
         return members;
     }
 
-    public void setMembers(ArrayList<String> members) {
+    public void setMembers(ArrayList<Integer> members) {
         this.members = members;
     }
 
@@ -77,8 +78,8 @@ public class Group {
      * String.format(): 문자열의 형식을 설정하는 메소드
      */
     public String toString() {
-        String str = String.format("%10s", num) + String.format("%15s", currentNum) + String.format("%15s", lecture)
-                + String.format("%15s", studyTime) + String.format("%15s", members);
+        String str = String.format("%s ", lecture) + String.format("%s/%s ", currentNum, num)
+                + String.format("%s ", studyTime) + String.format("%s ", members);
         return str;
     }
 }
